@@ -12,13 +12,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\RM.Application\RM.Application.csproj" />
-      <ProjectReference Include="..\RM.Domain\RM.Domain.csproj" />
-      <ProjectReference Include="..\RM.Infrastructure\RM.Infrastructure.csproj" />
+      <ProjectReference Include="..\RM.Producer.Application\RM.Producer.Application.csproj" />
+      <ProjectReference Include="..\RM.Producer.Domain\RM.Producer.Domain.csproj" />
+      <ProjectReference Include="..\RM.Producer.Infrastructure\RM.Producer.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <InternalsVisibleTo Include="RM.Api.Tests.Unit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Controllers\" />
     </ItemGroup>
     
 </Project>

@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Api", "RM.Api\RM.Api.csproj", "{8558FC59-07B8-4726-8920-80FFBCEC1BE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src\RM.Producer.Api", "src\RM.Producer.Api\RM.Producer.Api.csproj", "{8558FC59-07B8-4726-8920-80FFBCEC1BE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Domain", "RM.Domain\RM.Domain.csproj", "{0F474427-B70C-4FE3-939E-7904530443D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src\RM.Producer.Domain", "src\RM.Producer.Domain\RM.Producer.Domain.csproj", "{0F474427-B70C-4FE3-939E-7904530443D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Application", "RM.Application\RM.Application.csproj", "{FF1A7F20-C3B7-42B3-AEB2-00B009AB3E4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src\RM.Producer.Application", "src\RM.Producer.Application\RM.Producer.Application.csproj", "{FF1A7F20-C3B7-42B3-AEB2-00B009AB3E4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Infrastructure", "RM.Infrastructure\RM.Infrastructure.csproj", "{FDAFF875-DD34-4DE0-89C7-128BF6159747}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src\RM.Producer.Infrastructure", "src\RM.Producer.Infrastructure\RM.Producer.Infrastructure.csproj", "{FDAFF875-DD34-4DE0-89C7-128BF6159747}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{DE2EA682-1AA3-4201-9383-7955F980B922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RM.Api.Tests.Unit", "RM.Api.Tests.Unit\RM.Api.Tests.Unit.csproj", "{A14D7154-3BB2-40B1-AA79-24BB179C372C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests\RM.Producer.Api.Tests.Unit", "tests\RM.Producer.Api.Tests.Unit\RM.Producer.Api.Tests.Unit.csproj", "{A14D7154-3BB2-40B1-AA79-24BB179C372C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{05488A83-E0F7-4199-855A-A9EFEB30AC31}"
 EndProject
