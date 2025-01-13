@@ -5,23 +5,19 @@ using RM.Producer.Application.Interfaces;
 
 namespace RM.Producer.Infrastructure.Services;
 
-internal class MessageSender : IMessageSender
+internal class MessageSender(IConnectionFactory connectionFactory) : IMessageSender
 {
-    private readonly IConnectionFactory _connectionFactory;
-
-    public MessageSender(IConnectionFactory connectionFactory)
-    {
-        _connectionFactory = connectionFactory;
-    }
-
     public async Task SimplePublishAsync<TMessage>(TMessage message)
     {
-        await using var connection = await _connectionFactory.CreateConnectionAsync();
+        await using var connection = await connectionFactory.CreateConnectionAsync();
         await using var channel = await connection.CreateChannelAsync();
 
         var serializedMessage = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(serializedMessage);
 
+        await channel.QueueDeclareAsync(queue: "hello", durable: false, exclusive: false, autoDelete: false,
+            arguments: null);
+        
         await channel.BasicPublishAsync(string.Empty, routingKey: "hello", body);
     }
 }

@@ -2,11 +2,10 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
-using RM.Producer.Application.Interfaces;
-using RM.Producer.Infrastructure.Options;
-using RM.Producer.Infrastructure.Services;
+using RM.Consumer.Infrastructure.Consumers;
+using RM.Consumer.Infrastructure.Options;
 
-namespace RM.Producer.Infrastructure;
+namespace RM.Consumer.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {
@@ -28,8 +27,8 @@ public static class ServiceCollectionExtensions
             };
         });
 
-        services.AddSingleton<IMessageSender, MessageSender>();
-
+        services.AddHostedService<SimpleConsumerBackgroundService>();
+        
         return services;
     }
 }
