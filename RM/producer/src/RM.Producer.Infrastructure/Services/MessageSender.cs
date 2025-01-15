@@ -37,4 +37,16 @@ internal class MessageSender(IConnectionFactory connectionFactory) : IMessageSen
         await channel.ExchangeDeclareAsync(exchange: "logs", type: ExchangeType.Fanout);
         await channel.BasicPublishAsync("logs", routingKey: string.Empty, body);
     }
+
+    public async Task RoutingPublishAsync<TMessage>(TMessage message, string routingKey)
+    {
+        await using var connection = await connectionFactory.CreateConnectionAsync();
+        await using var channel = await connection.CreateChannelAsync();
+
+        var serializedMessage = JsonSerializer.Serialize(message);
+        var body = Encoding.UTF8.GetBytes(serializedMessage);
+
+        await channel.ExchangeDeclareAsync(exchange: "direct_logs", type: ExchangeType.Direct);
+        await channel.BasicPublishAsync("direct_logs", routingKey: routingKey, body);
+    }
 }

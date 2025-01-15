@@ -29,6 +29,8 @@ public static class ServiceCollectionExtensions
 
         services.AddHostedService<SimpleConsumerBackgroundService>();
         services.AddHostedService<PubSubBackgroundService>();
+        services.AddHostedService<CriticalErrorBackgroundService>();
+        services.AddHostedService<OtherErrorBackgroundService>();
         
         return services;
     }

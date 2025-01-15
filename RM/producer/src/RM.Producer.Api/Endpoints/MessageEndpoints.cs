@@ -18,4 +18,11 @@ public static class MessageEndpoints
         
         return Results.Ok();
     }
+    
+    public static async Task<IResult> RoutingPublishAsync([FromServices] IMessageSender sender, string message, string routingKey)
+    {
+        await sender.RoutingPublishAsync(message, routingKey);
+        
+        return Results.Ok();
+    }
 }
