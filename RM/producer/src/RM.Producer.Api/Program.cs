@@ -24,4 +24,8 @@ app.MapPost("simple",
     async ([FromServices] IMessageSender sender, [FromBody] MessageModel messageModel) =>
     await MessageEndpoints.SimplePublishAsync(sender, messageModel.Message));
 
+app.MapPost("pub-sub",
+    async ([FromServices] IMessageSender sender, [FromBody] MessageModel messageModel) =>
+    await MessageEndpoints.PubSubPublishAsync(sender, messageModel.Message));
+
 app.Run();

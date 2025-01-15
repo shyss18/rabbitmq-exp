@@ -11,4 +11,11 @@ public static class MessageEndpoints
         
         return Results.Ok();
     }
+
+    public static async Task<IResult> PubSubPublishAsync([FromServices] IMessageSender sender, string message)
+    {
+        await sender.PubSubPublishAsync(message);
+        
+        return Results.Ok();
+    }
 }

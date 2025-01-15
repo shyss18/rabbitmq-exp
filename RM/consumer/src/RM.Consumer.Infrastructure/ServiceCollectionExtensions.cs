@@ -28,6 +28,7 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddHostedService<SimpleConsumerBackgroundService>();
+        services.AddHostedService<PubSubBackgroundService>();
         
         return services;
     }
