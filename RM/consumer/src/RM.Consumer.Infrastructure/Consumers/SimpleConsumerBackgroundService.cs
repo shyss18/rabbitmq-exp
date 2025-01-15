@@ -19,29 +19,31 @@ internal sealed class SimpleConsumerBackgroundService(
     {
         logger.LogInformation($"Start {nameof(SimpleConsumerBackgroundService)}");
 
+        logger.LogInformation(" [*] Waiting for messages.");
+        
         while (!stoppingToken.IsCancellationRequested)
         {
             var factory = new ConnectionFactory { HostName = _options.HostName };
             await using var connection = await factory.CreateConnectionAsync(stoppingToken);
             await using var channel = await connection.CreateChannelAsync(cancellationToken: stoppingToken);
 
-            await channel.QueueDeclareAsync(queue: "hello", durable: false, exclusive: false, autoDelete: false,
+            await channel.QueueDeclareAsync(queue: "task_queue", durable: true, exclusive: false, autoDelete: false,
                 arguments: null, cancellationToken: stoppingToken);
-            
-            logger.LogInformation(" [*] Waiting for messages.");
 
             var consumer = new AsyncEventingBasicConsumer(channel);
-            consumer.ReceivedAsync += (_, ea) =>
+            consumer.ReceivedAsync += async (_, ea) =>
             {
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 logger.LogInformation($" [x] Received {message}");
 
-                return Task.CompletedTask;
+                await channel.BasicAckAsync(deliveryTag: ea.DeliveryTag, false, stoppingToken);
             };
 
-            await channel.BasicConsumeAsync("hello", autoAck: true, consumer: consumer, cancellationToken: stoppingToken);
+            await channel.BasicConsumeAsync("task_queue", autoAck: false, consumer: consumer, cancellationToken: stoppingToken);
 
+            await channel.BasicQosAsync(prefetchSize: 0, prefetchCount: 1, global: false, cancellationToken: stoppingToken);
+            
             await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
         }
 

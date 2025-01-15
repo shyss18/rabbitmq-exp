@@ -15,9 +15,14 @@ internal class MessageSender(IConnectionFactory connectionFactory) : IMessageSen
         var serializedMessage = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(serializedMessage);
 
-        await channel.QueueDeclareAsync(queue: "hello", durable: false, exclusive: false, autoDelete: false,
+        await channel.QueueDeclareAsync(queue: "task_queue", durable: true, exclusive: false, autoDelete: false,
             arguments: null);
+
+        var properties = new BasicProperties
+        {
+            Persistent = true
+        };
         
-        await channel.BasicPublishAsync(string.Empty, routingKey: "hello", body);
+        await channel.BasicPublishAsync(string.Empty, routingKey: "task_queue", mandatory: true, basicProperties: properties, body);
     }
 }
