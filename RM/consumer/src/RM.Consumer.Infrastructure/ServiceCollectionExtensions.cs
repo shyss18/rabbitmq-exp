@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
         services.AddHostedService<PubSubBackgroundService>();
         services.AddHostedService<CriticalErrorBackgroundService>();
         services.AddHostedService<OthersErrorBackgroundService>();
+        services.AddHostedService<TopicConsumerBackgroundService>();
         
         return services;
     }

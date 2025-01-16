@@ -31,4 +31,16 @@ public static class MessageEndpoints
         
         return Results.Ok();
     }
+    
+    public static async Task<IResult> TopicPublishAsync([FromServices] IMessageSender sender, string message, string? topic)
+    {
+        if (string.IsNullOrWhiteSpace(topic))
+        {
+            return Results.BadRequest("Topic wasn't specified");
+        }
+        
+        await sender.TopicPublishAsync(message, topic);
+        
+        return Results.Ok();
+    }
 }

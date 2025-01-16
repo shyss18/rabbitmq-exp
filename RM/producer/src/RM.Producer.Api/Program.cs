@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using RM.Producer.Api.Endpoints;
 using RM.Producer.Api.Models;
 using RM.Producer.Application.Interfaces;
-using RM.Producer.Domain.Enums;
 using RM.Producer.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,5 +31,9 @@ app.MapPost("pub-sub",
 app.MapPost("routing",
     async ([FromServices] IMessageSender sender, [FromBody] MessageModel messageModel) =>
     await MessageEndpoints.RoutingPublishAsync(sender, messageModel.Message, messageModel.RoutingKey));
+
+app.MapPost("topic",
+    async ([FromServices] IMessageSender sender, [FromBody] MessageModel messageModel) =>
+    await MessageEndpoints.TopicPublishAsync(sender, messageModel.Message, messageModel.Topic));
 
 app.Run();
