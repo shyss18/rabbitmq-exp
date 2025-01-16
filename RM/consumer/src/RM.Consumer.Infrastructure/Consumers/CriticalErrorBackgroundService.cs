@@ -52,6 +52,6 @@ internal sealed class CriticalErrorBackgroundService(
             await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
         }
 
-        logger.LogInformation($"Finish {nameof(SimpleConsumerBackgroundService)}");
+        logger.LogInformation($"Finish {nameof(CriticalErrorBackgroundService)}");
     }
 }

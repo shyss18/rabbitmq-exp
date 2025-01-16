@@ -18,7 +18,7 @@ internal sealed class OthersErrorBackgroundService(
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        logger.LogInformation($"Start {nameof(SimpleConsumerBackgroundService)}");
+        logger.LogInformation($"Start {nameof(OthersErrorBackgroundService)}");
 
         logger.LogInformation(" [*] Waiting for messages.");
         
@@ -52,6 +52,6 @@ internal sealed class OthersErrorBackgroundService(
             await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
         }
 
-        logger.LogInformation($"Finish {nameof(SimpleConsumerBackgroundService)}");
+        logger.LogInformation($"Finish {nameof(OthersErrorBackgroundService)}");
     }
 }

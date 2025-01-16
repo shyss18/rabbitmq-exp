@@ -17,7 +17,7 @@ internal sealed class PubSubBackgroundService
     
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        logger.LogInformation($"Start {nameof(SimpleConsumerBackgroundService)}");
+        logger.LogInformation($"Start {nameof(PubSubBackgroundService)}");
 
         logger.LogInformation(" [*] Waiting for messages.");
         
@@ -51,6 +51,6 @@ internal sealed class PubSubBackgroundService
             await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
         }
 
-        logger.LogInformation($"Finish {nameof(SimpleConsumerBackgroundService)}");
+        logger.LogInformation($"Finish {nameof(PubSubBackgroundService)}");
     }
 }
