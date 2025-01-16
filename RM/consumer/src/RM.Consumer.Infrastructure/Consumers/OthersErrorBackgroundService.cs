@@ -4,12 +4,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RM.Consumer.Domain.Enums;
 using RM.Consumer.Infrastructure.Options;
 
 namespace RM.Consumer.Infrastructure.Consumers;
 
-internal sealed class OtherErrorBackgroundService(
-    ILogger<OtherErrorBackgroundService> logger,
+internal sealed class OthersErrorBackgroundService(
+    ILogger<OthersErrorBackgroundService> logger,
     IOptions<RabbitMqOptions> options)
     : BackgroundService
 {
@@ -32,7 +33,7 @@ internal sealed class OtherErrorBackgroundService(
             var queueDeclareResult = await channel.QueueDeclareAsync(cancellationToken: stoppingToken);
             var queueName = queueDeclareResult.QueueName;
 
-            await channel.QueueBindAsync(queue: queueName, exchange: "direct_logs", routingKey: "others", cancellationToken: stoppingToken);
+            await channel.QueueBindAsync(queue: queueName, exchange: "direct_logs", routingKey: DirectRoutingKeys.Others.ToString(), cancellationToken: stoppingToken);
             
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.ReceivedAsync += (_, ea) =>

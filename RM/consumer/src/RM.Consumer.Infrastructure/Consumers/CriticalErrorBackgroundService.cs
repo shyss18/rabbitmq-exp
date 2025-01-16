@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RM.Consumer.Domain.Enums;
 using RM.Consumer.Infrastructure.Options;
 
 namespace RM.Consumer.Infrastructure.Consumers;
@@ -32,7 +33,7 @@ internal sealed class CriticalErrorBackgroundService(
             var queueDeclareResult = await channel.QueueDeclareAsync(cancellationToken: stoppingToken);
             var queueName = queueDeclareResult.QueueName;
 
-            await channel.QueueBindAsync(queue: queueName, exchange: "direct_logs", routingKey: "critical", cancellationToken: stoppingToken);
+            await channel.QueueBindAsync(queue: queueName, exchange: "direct_logs", routingKey: DirectRoutingKeys.Critical.ToString(), cancellationToken: stoppingToken);
             
             var consumer = new AsyncEventingBasicConsumer(channel);
             consumer.ReceivedAsync += (_, ea) =>

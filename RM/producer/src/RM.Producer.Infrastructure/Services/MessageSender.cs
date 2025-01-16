@@ -2,6 +2,7 @@
 using System.Text.Json;
 using RabbitMQ.Client;
 using RM.Producer.Application.Interfaces;
+using RM.Producer.Domain.Enums;
 
 namespace RM.Producer.Infrastructure.Services;
 
@@ -38,7 +39,7 @@ internal class MessageSender(IConnectionFactory connectionFactory) : IMessageSen
         await channel.BasicPublishAsync("logs", routingKey: string.Empty, body);
     }
 
-    public async Task RoutingPublishAsync<TMessage>(TMessage message, string routingKey)
+    public async Task RoutingPublishAsync<TMessage>(TMessage message, DirectRoutingKeys routingKey)
     {
         await using var connection = await connectionFactory.CreateConnectionAsync();
         await using var channel = await connection.CreateChannelAsync();
@@ -47,6 +48,6 @@ internal class MessageSender(IConnectionFactory connectionFactory) : IMessageSen
         var body = Encoding.UTF8.GetBytes(serializedMessage);
 
         await channel.ExchangeDeclareAsync(exchange: "direct_logs", type: ExchangeType.Direct);
-        await channel.BasicPublishAsync("direct_logs", routingKey: routingKey, body);
+        await channel.BasicPublishAsync("direct_logs", routingKey: routingKey.ToString(), body);
     }
 }

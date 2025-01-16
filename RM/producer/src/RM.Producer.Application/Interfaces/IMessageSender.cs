@@ -1,4 +1,6 @@
-﻿namespace RM.Producer.Application.Interfaces;
+﻿using RM.Producer.Domain.Enums;
+
+namespace RM.Producer.Application.Interfaces;
 
 public interface IMessageSender
 {
@@ -6,5 +8,5 @@ public interface IMessageSender
     
     Task PubSubPublishAsync<TMessage>(TMessage message);
 
-    Task RoutingPublishAsync<TMessage>(TMessage message, string routingKey);
+    Task RoutingPublishAsync<TMessage>(TMessage message, DirectRoutingKeys routingKey);
 }

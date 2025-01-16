@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using RM.Producer.Api.Endpoints;
 using RM.Producer.Api.Models;
 using RM.Producer.Application.Interfaces;
+using RM.Producer.Domain.Enums;
 using RM.Producer.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);

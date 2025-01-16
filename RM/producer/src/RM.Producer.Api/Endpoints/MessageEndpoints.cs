@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RM.Producer.Application.Interfaces;
+using RM.Producer.Domain.Enums;
 
 namespace RM.Producer.Api.Endpoints;
 
@@ -19,9 +20,14 @@ public static class MessageEndpoints
         return Results.Ok();
     }
     
-    public static async Task<IResult> RoutingPublishAsync([FromServices] IMessageSender sender, string message, string routingKey)
+    public static async Task<IResult> RoutingPublishAsync([FromServices] IMessageSender sender, string message, DirectRoutingKeys? routingKey)
     {
-        await sender.RoutingPublishAsync(message, routingKey);
+        if (routingKey is null)
+        {
+            return Results.BadRequest("RoutingKey wasn't specified");
+        }
+        
+        await sender.RoutingPublishAsync(message, routingKey.Value);
         
         return Results.Ok();
     }
